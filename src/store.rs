@@ -163,7 +163,7 @@ impl StoreBuilder {
 pub struct Store {
   pub(crate) path: PathBuf,
   pub(crate) defaults: Option<HashMap<String, JsonValue>>,
-  pub(crate) cache: HashMap<String, JsonValue>,
+  pub cache: HashMap<String, JsonValue>,
   serialize: SerializeFn,
   deserialize: DeserializeFn,
 }
@@ -173,7 +173,7 @@ impl Store {
   pub fn load<R: Runtime>(&mut self, app: &AppHandle<R>) -> Result<(), Error> {
     let app_dir = app
       .path_resolver()
-      .app_dir()
+      .app_config_dir()
       .expect("failed to resolve app dir");
     let store_path = app_dir.join(&self.path);
 
@@ -188,7 +188,7 @@ impl Store {
   pub fn save<R: Runtime>(&self, app: &AppHandle<R>) -> Result<(), Error> {
     let app_dir = app
       .path_resolver()
-      .app_dir()
+      .app_config_dir()
       .expect("failed to resolve app dir");
     let store_path = app_dir.join(&self.path);
 
